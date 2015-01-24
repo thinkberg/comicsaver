@@ -22,7 +22,10 @@
 
 - (void)startAnimation
 {
-    document = MyGetPDFDocumentRef ("/Users/leo/Documents/Shared/Comics/Letter 44/letter44_vol1_1412097863.pdf");
+    NSString *localPath = @"/Documents/Shared/Comics/Letter 44/letter44_vol1_1412097863.pdf";
+    NSString *docPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), localPath];
+    document = MyGetPDFDocumentRef ([docPath UTF8String]);
+    
     long numberOfPages = CGPDFDocumentGetNumberOfPages (document);
     page = CGPDFDocumentGetPage (document, (random()%numberOfPages)+1);
     [super startAnimation];
@@ -43,12 +46,12 @@
     
     CGContextSetRGBFillColor(context, 1.0, 1.0, 1.0, 1.0);
     CGContextFillRect(context, clip);
-    CGContextTranslateCTM(context, 0.0, -(clip.size.height + cropBox.size.height));
+    CGContextTranslateCTM(context, 0.0, 0.0);
     CGContextScaleCTM(context, 1.0, 1.0);
     
     CGFloat xScale = clip.size.width / cropBox.size.width;
     CGFloat yScale = clip.size.height / cropBox.size.height;
-    CGFloat scaleToApply = xScale < yScale ? yScale : xScale;
+    CGFloat scaleToApply = xScale < yScale ? xScale : yScale;
     CGContextConcatCTM(context, CGAffineTransformMakeScale(scaleToApply, scaleToApply));
     //    CGContextConcatCTM(context, CGPDFPageGetDrawingTransform(page, kCGPDFCropBox, clip, 0, true));
     CGContextDrawPDFPage (context, page);
