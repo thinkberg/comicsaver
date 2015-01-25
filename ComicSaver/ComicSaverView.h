@@ -11,7 +11,12 @@
 @interface ComicSaverView : ScreenSaverView
 {
     CGPDFDocumentRef document;
-    CGPDFPageRef page;
+    long numberOfPages;
+    long currentPage;
+
+    NSMutableArray *pages;
+
+    CGFloat offset;
 }
 
 @end
