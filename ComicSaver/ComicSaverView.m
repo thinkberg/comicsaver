@@ -23,7 +23,7 @@
         
         pages = [[NSMutableArray alloc] init];
         
-        [self setAnimationTimeInterval:1/500.0];
+        [self setAnimationTimeInterval:1/30.0];
     }
     return self;
 }
